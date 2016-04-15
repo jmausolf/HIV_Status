@@ -29,7 +29,7 @@ To analyze your data, there are two steps:
 	#dataset = 'data/cs-training.csv' #Original data
 	#dataset = 'cs-training#3B.csv' #Post-impute data
 
-dataset = 'data/cohort1_all.csv'
+dataset = 'data/HIV_stat.csv'
 
 
 
@@ -212,7 +212,7 @@ data.columns = [camel_to_snake(col) for col in data.columns]
 
 # Generate Summary Statistics
 for col in data.columns:
-	summary_statistics(col, 'data/cohort1_all.csv', 5, 10)
+	summary_statistics(col, 'data/HIV_stat.csv', 5, 10)
 
 
 
