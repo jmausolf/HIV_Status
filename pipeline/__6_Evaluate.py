@@ -28,6 +28,7 @@ from sklearn import metrics
 from sklearn.cross_validation import cross_val_score
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import auc
+from sklearn.metrics import confusion_matrix
 
 
 # TIME
@@ -198,6 +199,7 @@ def evalualte_K_fold(dataset, DV, model, sets):
 		try:
 			y_score = clf.fit(X_train, y_train).predict_proba(X_test)
 			plot_precision_recall_curve(y_test, y_score, model)
+			confusion_matrix(y_test, y_score)
 		except:
 			print ""
 			pass
@@ -215,7 +217,9 @@ def evalualte_K_fold(dataset, DV, model, sets):
 
 
 # Unhash to test
-classifiers = ['logit', 'd_tree', 'random_forest', 'random_forest_bagging', 'random_forest_boosting', 'gradient_boosting', 'KNN', 'anova_svm']
+#classifiers = ['logit', 'd_tree', 'random_forest', 'random_forest_bagging', 'random_forest_boosting', 'gradient_boosting', 'KNN', 'anova_svm']
+classifiers = ['logit', 'd_tree', 'random_forest']
+
 #classifiers = ['anova_svm']
 
 #droplist = ['dropout', 'g6_dropout', 'g7_dropout', 'g8_dropout', 'g9_dropout', 'g10_dropout', 'g11_dropout']
@@ -228,11 +232,19 @@ def EVAL():
 	print "__"*25, '\n', "Grade 12 Dropout Using Grade 10 and Grade 11", '\n', "__"*25
 	for clf in classifiers:
 		print "__"*50, "\n"
+		#df = 'data/HIV_stat.csv'
 		#evalualte_K_fold('data/g11g12onlyimputed_data.csv', 'g12_dropout', clf, 5) #DONT USE
 		#evalualte_K_fold('data/g11ong12onlyimputed_data.csv', 'g12_dropout', clf, 5)
 		#evalualte_K_fold('data/g11g12bothimputed_data.csv', 'g12_dropout', clf, 5)
-		evalualte_K_fold('data/g10g11ong12imputed_data.csv', 'g12_dropout', clf, 5)
+		evalualte_K_fold('data/HIV_stat2.csv', 'hivfilled', clf, 5)
 
 
 
 EVAL()
+
+
+#from sklearn.metrics import classification_report
+#y_true = [0, 1, 2, 2, 2]
+#y_pred = [0, 0, 2, 2, 1]
+#target_names = ['class 0', 'class 1', 'class 2']
+#print(classification_report(y_true, y_pred, target_names=target_names))
